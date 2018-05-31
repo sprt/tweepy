@@ -424,7 +424,7 @@ class Stream(object):
             self.session.params['stall_warnings'] = 'true'
         self._start(async)
 
-    def filter(self, follow=None, track=None, async=False, locations=None,
+    def filter(self, follow=None, track=None, async=False, locations=None, tweet_mode=None,
                stall_warnings=False, languages=None, encoding='utf8', filter_level=None):
         self.body = {}
         self.session.headers['Content-type'] = "application/x-www-form-urlencoded"
@@ -446,6 +446,8 @@ class Stream(object):
             self.body['language'] = u','.join(map(str, languages))
         if filter_level:
             self.body['filter_level'] = filter_level.encode(encoding)
+        if tweet_mode:
+            self.body['tweet_mode'] = tweet_mode
         self.session.params = {'delimited': 'length'}
         self.host = 'stream.twitter.com'
         self._start(async)
